@@ -4,10 +4,8 @@ var todoList = {
         if (this.todos.length === 0) {
             console.log('There are no todos')
         } else {
+            console.log('My todos:');
             for (var i = 0; i < this.todos.length; i++) {
-                console.log('My todos:');
-                
-
                 if (this.todos[i].completed === true) {
                     console.log('(x)', this.todos[i].todoText)
                 } else {
@@ -35,6 +33,38 @@ var todoList = {
         var todo = this.todos[position];
         todo.completed = !todo.completed;
         this.displayTodos();
+    },
+    toggleAll: function() {
+        // get todos total todos
+        var totalTodos = this.todos.length;
+        // get total of todos
+        var completedTodos = 0;
+        for (var i = 0; i < totalTodos; i++){
+            if (this.todos[i].completed === true){
+                completedTodos++;
+            }
+        }
+        if (completedTodos === totalTodos){
+            for (var i = 0; i < totalTodos; i++){
+                this.todos[i].completed = false;
+            }
+        } else {
+            for (var i = 0; i < totalTodos; i++){
+                this.todos[i].completed = true;
+            }
+        }
+        this.displayTodos();
     }
 }
 
+var displayTodosButton = document.getElementById("displayTodoButton");
+
+displayTodosButton.addEventListener('click', function(){
+    todoList.displayTodos()
+});
+
+var toggleAllButton = document.getElementById('toggleAllButton');
+
+toggleAllButton.addEventListener('click', function(){
+    todoList.toggleAll();
+})
